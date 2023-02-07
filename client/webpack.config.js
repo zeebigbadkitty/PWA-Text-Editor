@@ -1,5 +1,5 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+// const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const WebpackPwaManifest = require('webpack-pwa-manifest');
 const path = require('path');
 const { InjectManifest } = require('workbox-webpack-plugin');
@@ -24,10 +24,10 @@ module.exports = () => {
         template: './index.html',
         title: 'PWA-Text-Editor',
       }),
-      new MiniCssExtractPlugin(),
+      // new MiniCssExtractPlugin(),
       new InjectManifest({
-        swSrc: './src/sw.js',
-        swDest: 'src/sw.js', //***Is this value correct? */
+        swSrc: './src-sw.js',
+        swDest: 'src-sw.js', 
       }),
       new WebpackPwaManifest({
         fingerprints: false,
@@ -53,7 +53,7 @@ module.exports = () => {
       rules: [
         {
           test: /\.css$/i,
-          use: [MiniCssExtractPlugin.loader, 'css-loader'], //***or 'style-loader'? */
+          use: ['style-loader', 'css-loader'],
         },
         {
           test: /\.m?js$/,
@@ -64,10 +64,6 @@ module.exports = () => {
               presets: ['@babel/preset-env'],
             },
           },
-        },
-        {
-          test: /\.(png|svg|jpg|jpeg|gif)$/i,
-          type: 'asset/resource',  //***Do I need this? */
         },
       ],
     },
